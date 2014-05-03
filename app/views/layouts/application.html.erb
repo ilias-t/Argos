@@ -9,11 +9,11 @@
   <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
   <script src="http://js.arcgis.com/3.9/"></script>
    <style>
-      html, body { 
+      html, body {
         height: 100%; width: 100%;
         margin: 0; padding: 0;
-      } 
-      #map{ 
+      }
+      #map{
         padding:0;
         border:solid 1px #343642;
         margin:5px 5px 5px 0px;
@@ -32,9 +32,9 @@
    <script src="http://js.arcgis.com/3.9/"></script>
     <script>
       var locator, map;
-      
+
       require([
-        "esri/map", "esri/tasks/locator", 
+        "esri/map", "esri/tasks/locator",
         "esri/SpatialReference", "esri/graphic",
         "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleMarkerSymbol",
         "esri/symbols/Font", "esri/symbols/TextSymbol",
@@ -46,10 +46,10 @@
         "dijit/form/Button", "dijit/form/Textarea",
         "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!", "esri/config"
       ], function(
-        Map, Locator, 
+        Map, Locator,
         SpatialReference, Graphic,
-        SimpleLineSymbol, SimpleMarkerSymbol, 
-        Font, TextSymbol, 
+        SimpleLineSymbol, SimpleMarkerSymbol,
+        Font, TextSymbol,
         Point, Extent,
         webMercatorUtils,
         arrayUtils, Color,
@@ -68,7 +68,7 @@
 
         registry.byId("locate").on("click", locate);
 
-        //Draw and zoom to the result when the geocoding is complete                
+        //Draw and zoom to the result when the geocoding is complete
         locator.on("address-to-locations-complete", function(evt) {
           map.graphics.clear();
           arrayUtils.forEach(evt.addresses, function(geocodeResult, index) {
@@ -76,25 +76,25 @@
             var r = Math.floor(Math.random() * 250);
             var g = Math.floor(Math.random() * 100);
             var b = Math.floor(Math.random() * 100);
-          
+
             var symbol = new SimpleMarkerSymbol(
-              SimpleMarkerSymbol.STYLE_CIRCLE, 
-              20, 
+              SimpleMarkerSymbol.STYLE_CIRCLE,
+              20,
               new SimpleLineSymbol(
-                SimpleLineSymbol.STYLE_SOLID, 
-                new Color([r, g, b, 0.5]), 
+                SimpleLineSymbol.STYLE_SOLID,
+                new Color([r, g, b, 0.5]),
                 10
               ), new Color([r, g, b, 0.9]));
             var pointMeters = webMercatorUtils.geographicToWebMercator(geocodeResult.location);
             var locationGraphic = new Graphic(pointMeters, symbol);
-           
+
             var font = new Font().setSize("12pt").setWeight(Font.WEIGHT_BOLD);
             var textSymbol = new TextSymbol(
-              (index + 1) + ".) " + geocodeResult.address, 
-              font, 
+              (index + 1) + ".) " + geocodeResult.address,
+              font,
               new Color([r, g, b, 0.8])
             ).setOffset(5, 15);
-            //add the location graphic and text with the address to the map 
+            //add the location graphic and text with the address to the map
             map.graphics.add(locationGraphic);
             map.graphics.add(new Graphic(pointMeters, textSymbol));
           });
@@ -120,9 +120,9 @@
         function showResults(results) {
           var rdiv = dom.byId("resultsdiv");
           rdiv.innerHTML = "<p><b>Results : " + results.length + "</b></p>";
-          
+
           var content = [];
-          arrayUtils.forEach(results, function(result, index) {             
+          arrayUtils.forEach(results, function(result, index) {
             var x = result.location.x.toFixed(5);
             var y = result.location.y.toFixed(5);
             content.push("<fieldset>");
@@ -144,9 +144,9 @@
             content.push("<b>Esri JSON</b><br/>");
             content.push("<b>WGS:</b> " + JSON.stringify(result.location.toJson()));
             content.push("<br/>");
-            
+
             var location_wm = webMercatorUtils.geographicToWebMercator(result.location);
-            
+
             content.push("<b>WM:</b> " + JSON.stringify(location_wm.toJson()));
             content.push("<br/><br/>");
             content.push("<b>Geo JSON</b><br/>");
@@ -158,7 +158,7 @@
           rdiv.innerHTML += content.join("");
         }
 
-        //Perform the geocode. This function runs when the "Locate" button is pushed.            
+        //Perform the geocode. This function runs when the "Locate" button is pushed.
         function locate() {
           var address = {
              SingleLine: dom.byId("address").value
@@ -171,7 +171,7 @@
           locator.addressToLocations(options);
         }
       });
-      
+
       function zoomTo(lat, lon) {
         require([
           "esri/geometry/Point", "esri/geometry/webMercatorUtils"
@@ -185,30 +185,9 @@
       }
     </script>
   </head>
-  
+
   <body class="claro">
-    <div data-dojo-type="dijit/layout/BorderContainer" 
-         data-dojo-props="gutters:false, design:'sidebar'" 
-         style="width:100%;height:100%;">
-
-      <div id="map" 
-           data-dojo-type="dijit/layout/ContentPane" 
-           data-dojo-props="region:'center'">
-      </div>
-
-      <div id="footerPane" 
-           data-dojo-type="dijit/layout/ContentPane" 
-           data-dojo-props="region:'bottom'">
-
-        <div>Address :
-          <input type="text" id="address" size="60" value="380 New York St, Redlands, CA, 92373"/>
-          <button id="locate" data-dojo-type="dijit/form/Button">Locate</button>
-        </div>
-        <div id="currentextent"></div>
-        <div id="resultsdiv"></div>
-
-      </div>
-    </div>
+    <%= yield %>
   </body>
 
 </html>
