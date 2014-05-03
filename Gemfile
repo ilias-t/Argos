@@ -31,6 +31,8 @@ gem 'spring',        group: :development
 
 gem 'pry-rails'
 
+gem 'httparty'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
