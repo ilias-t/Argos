@@ -19,10 +19,28 @@
   <div id="mapDiv"></div>
   
   <script>
-    require(["esri/map", "dojo/domReady"], function(Map) {
+    var map;
+
+    require(["esri/map", "esri/config", "dojo/domReady!", "esri/geometry/Point",
+      "esri/tasks/locator", "esri/graphic",
+      "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleMarkerSymbol",
+        "esri/symbols/Font", "esri/symbols/TextSymbol",
+        "esri/geometry/Point", "esri/geometry/Extent",
+        "esri/geometry/webMercatorUtils",
+        "dojo/_base/array", "esri/Color",
+        "dojo/number", "dojo/parser", "dojo/dom", "dojo/json", "dijit/registry",
+        "dijit/form/Button", "dijit/form/Textarea",
+        "dijit/layout/BorderContainer", "dijit/layout/ContentPane"
+      ],
+    function(Map, Locator, SpatialReference, Graphic, SimpleLineSymbol, SimpleMarkerSymbol, Font, TextSymbol, Point, Extent, webMercatorUtils, arrayUtils, esriConfig){
+      esriConfig.defaults.map.panDuration = 1;
+      esriConfig.defaults.map.panRate = 1;
+      esriConfig.defaults.map.zoomDuration = 100;
+      esriConfig.defaults.map.zoomRate = 1;
+  
         map = new Map("mapDiv", {
-          center: [39.049, 98.485],
-          zoom: 3,
+          center: [-98.35, 39.50],
+          zoom: 4,
           basemap: "gray"
         });
      });
