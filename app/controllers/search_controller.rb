@@ -1,9 +1,10 @@
 class SearchController < ApplicationController
 
+
   def index
     @query = Organization.find_by_name(params[:query].downcase)
     @results = search(@query.crunchbase_id, params[:type])
-    render :show
+    render :index
   end
 
 private
