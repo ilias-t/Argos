@@ -32,7 +32,14 @@
         "dijit/form/Button", "dijit/form/Textarea",
         "dijit/layout/BorderContainer", "dijit/layout/ContentPane"
       ],
-    function(Map, Locator, SpatialReference, Graphic, SimpleLineSymbol, SimpleMarkerSymbol, Font, TextSymbol, Point, Extent, webMercatorUtils, arrayUtils, esriConfig){
+    function(Map, Locator, 
+        SpatialReference, Graphic,
+        SimpleLineSymbol, SimpleMarkerSymbol, 
+        Font, TextSymbol, 
+        Point, Extent,
+        webMercatorUtils,
+        arrayUtils, Color,
+        number, parser, dom, JSON, registry) {
       esriConfig.defaults.map.panDuration = 1;
       esriConfig.defaults.map.panRate = 1;
       esriConfig.defaults.map.zoomDuration = 100;
@@ -43,6 +50,11 @@
           zoom: 4,
           basemap: "gray"
         });
+
+        locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+
+        registry.byId("locate").on("click", locate);
+
      });
   </script>
 
