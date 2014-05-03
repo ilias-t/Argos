@@ -1,1 +1,21 @@
 Welcome
+
+<input><button id="submit">Submit</button>
+
+
+<script type="text/javascript">
+
+  $("#submit").on("click", function() {
+    var data = {
+      query: $("input").val()
+    };
+    console.log(data);
+    $.ajax({
+      url:"/search", 
+      data: data
+    }).success(function(response){
+        window.location.replace("/search/")
+      });
+  });
+
+</script>
