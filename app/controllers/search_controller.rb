@@ -18,15 +18,14 @@ class SearchController < ApplicationController
     elsif params[:type] == "organization"
       @query = Organization.where(:name == params[:query])
     end
-    @results = search(@query, params[:type])
+    @results = search(@query.crunchbase_id, params[:type])
     render :show
   end
 
 private
 
   def search(query, type)
-    query_format = query.gsub(" ", "-")
-    HTTParty.get("http://api.crunchbase.com/v/2/#{type}/#{query_format}?user_key=#{CRUNCHBASE_API_KEY}")
+    HTTParty.get("http://api.crunchbase.com/v/2/#{type}/#{query}?user_key=#{CRUNCHBASE_API_KEY}")
   end
 
 
