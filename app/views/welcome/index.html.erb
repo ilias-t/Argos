@@ -13,7 +13,9 @@ Welcome
     $.ajax({
       url:"/search", 
       data: data
-    });
+    }).success(function(response){
+        window.location.replace("/show")
+      });
   });
 
 </script>
