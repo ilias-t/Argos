@@ -5,8 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Sector.delete_all
-f = File.open("lib/assets/category_export.csv")
+Organizations.delete_all
+f = File.open("lib/assets/final.csv")
 
   lines = f.map do |line|
     line.split("\n")
@@ -15,9 +15,10 @@ f = File.open("lib/assets/category_export.csv")
     company.first.split(",")
   end
   lines.each do |company|
-    Sector.create(
-      company: company[0].split("/").last,
-      sector: company[1]
+    Organizations.create(
+      name: company[0].downcase,
+      crunchbase_id: company[1].split("/").last,
+      sector: company[2]
       )
   end
 
