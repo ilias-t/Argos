@@ -5,8 +5,28 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+  <script src="http://js.arcgis.com/3.9/"></script>
+   <style>
+    html, body, #mapDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+  </style>
 </head>
-<body>
+<body class="claro">
+  <div id="mapDiv"></div>
+  
+  <script>
+    require(["esri/map", "dojo/domReady"], function(Map) {
+        map = new Map("mapDiv", {
+          center: [39.049, 98.485],
+          zoom: 3,
+          basemap: "gray"
+        });
+     });
+  </script>
 
 <%= yield %>
 
