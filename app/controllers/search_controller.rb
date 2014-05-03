@@ -12,10 +12,10 @@ class SearchController < ApplicationController
     render :show
   end
 
-  private
+private
 
   def search(query, type)
-    HTTParty.get = ""
+    HTTParty.get("http://api.crunchbase.com/v/2/#{type}/#{query}?user_key=#{CRUNCHBASE_API_KEY}")
   end
 
 
