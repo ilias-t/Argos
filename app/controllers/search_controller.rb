@@ -20,7 +20,7 @@ class SearchController < ApplicationController
     else
       @companies = getCompanies(@response)
       @company_locations = getCompanyLocations(@companies)
-      @info = {"locations" => @companies_locations, "companies" => @companies}
+      @info = {"locations" => @company_locations, "companies" => @companies}
     end
     @company_name = getCompanyName(@response)
     @company_description = getCompanyDescription(@response)

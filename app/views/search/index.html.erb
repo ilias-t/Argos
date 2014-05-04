@@ -40,6 +40,7 @@ function addingEventListeners(){
   });
 }
 
+
 $(document).on("click", function(){
   addingEventListeners();
 });
@@ -119,7 +120,8 @@ require([
       map.graphics.clear();
       require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
         var markerSymbol = new SimpleMarkerSymbol({
-          "color": [28,128,242,100]
+          "color": [28,128,242,100],
+          "size" : 100
         });
         map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
       });
@@ -136,7 +138,8 @@ require([
                 ], function(Point, Graphic, SimpleMarkerSymbol) {
                  var point = new Point(stuff[0].geometry.location.A, stuff[0].geometry.location.k);
                  var markerSymbol = new SimpleMarkerSymbol({
-                  "color": [212,42,65,100]
+                  "color": [212,42,65,100],
+                  "size" : 50
                 });
                  // markerSymbol["company_name"] = data.companies[index];
                  newGraphicPoint = new Graphic(point, markerSymbol);
