@@ -13,7 +13,6 @@ class SearchController < ApplicationController
       @companies = getCompanies(@response)
       @company_locations = getCompanyLocations(@companies)
     end
-    binding.pry
     render :index
   end
 
