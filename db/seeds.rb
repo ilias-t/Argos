@@ -12,7 +12,7 @@ f = File.open("lib/assets/final.csv")
     line.split("\n")
   end
   lines.map! do |company|
-    company.first.split(",")
+    company.first.split("\t")
   end
   lines.each do |company|
     Organizations.create(
