@@ -10,7 +10,7 @@ class SearchController < ApplicationController
       @locations = @funding_companies[0]
       @investors = @funding_companies[1]
       @info = {"locations" => @locations, "companies" => @investors}
-    else 
+    else
       @companies = getCompanies(@response)
       @company_locations = getCompanyLocations(@companies)
       @info = {"locations" => @companies_locations, "companies" => @companies}
