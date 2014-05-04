@@ -86,12 +86,12 @@ module ApplicationHelper
   def getCompanyLocations(companies)
     company_ids =[]
     companies.each do |company|
-      company = Organizations.find_by_name(company.downcase)
-      company_ids.push(company)
+      company_id = company.downcase.gsub(" ", "-")
+      company_ids.push(company_id)
     end
     addresses = []
     company_ids.each do |company|
-      address_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company.crunchbase_id}?user_key=#{CRUNCHBASE_API_KEY}")
+      address_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company}?user_key=#{CRUNCHBASE_API_KEY}")
       unless address_response["data"]["relationships"]["headquarters"] == nil
         street = address_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
         city = address_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
@@ -113,8 +113,8 @@ module ApplicationHelper
     addresses = []
     investors = []
     names.flatten!.uniq!.compact!.each do |company_name|
-      company = Organizations.find_by_name(company_name.downcase)
-      company_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company.crunchbase_id}?user_key=#{CRUNCHBASE_API_KEY}")
+      company_id = company_name.downcase.gsub(" ","-")
+      company_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company_id}?user_key=#{CRUNCHBASE_API_KEY}")
       unless company_response["data"]["relationships"]["headquarters"] == nil
         street = company_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
         city = company_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
@@ -123,7 +123,7 @@ module ApplicationHelper
         address = "#{street}, #{city}, #{state}, #{country}"
         addresses.push(address)
       end
-      investors.push(company)
+      investors.push(company_name)
     end
     return [addresses, investors]
   end
