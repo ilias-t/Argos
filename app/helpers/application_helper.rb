@@ -59,6 +59,7 @@ module ApplicationHelper
       funding_round["money_raised"] = funding_response["data"]["properties"]["money_raised_usd"]
       funding_round["announced_on"] = funding_response["data"]["properties"]["announced_on"]
       # Placing an array of funding organizations in the series hash
+      binding.pry
       funding_response["data"]["relationships"]["investments"]["items"].each do |funding_org|
         investing_companies << funding_org["investor"]["name"]
       end
