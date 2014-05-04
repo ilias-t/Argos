@@ -142,7 +142,8 @@ div.grid > div {
 
 .company-stats img {
   float: right;
-  margin-top: -110px;
+  margin-top: -70px;
+  width: 250px;
 }
 
 .company-stats img::after {
