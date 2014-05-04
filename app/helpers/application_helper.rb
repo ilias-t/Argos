@@ -36,8 +36,10 @@ module ApplicationHelper
   end
 
   def getCompanyPhoto(response)
-    photo = response["data"]["relationships"]["primary_image"]["items"][0]["path"]
-    return "http://images.crunchbase.com/#{photo}"
+    if response["data"]["relationships"]["primary_image"]
+      photo = response["data"]["relationships"]["primary_image"]["items"][0]["path"]
+      return "http://images.crunchbase.com/#{photo}"
+    end
   end
 
   def getLatestFunding(response)
@@ -109,7 +111,7 @@ module ApplicationHelper
     addresses = []
     company_ids.each do |company|
       address_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company}?user_key=#{CRUNCHBASE_API_KEY}")
-      unless address_response["data"]["relationships"]["headquarters"] == nil
+      unless address_response["data"]["relationships"] == nil
         street = address_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
         city = address_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
         state = address_response["data"]["relationships"]["headquarters"]["items"][0]["state"]
@@ -132,7 +134,7 @@ module ApplicationHelper
     names.flatten!.uniq!.compact!.each do |company_name|
       company_id = company_name.downcase.gsub(" ","-")
       company_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company_id}?user_key=#{CRUNCHBASE_API_KEY}")
-      unless company_response["data"]["relationships"]["headquarters"].nil?
+      unless company_response["data"]["relationships"]["headquarters"] == nil
         street = company_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
         city = company_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
         state = company_response["data"]["relationships"]["headquarters"]["items"][0]["region"]

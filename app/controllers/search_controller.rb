@@ -24,8 +24,7 @@ class SearchController < ApplicationController
     end
     @company_name = getCompanyName(@response)
     @company_description = getCompanyDescription(@response)
-    @latest_funding = getLatestFunding(@response)
-    @markets = getMarkets(@response)
+    # @markets = getMarkets(@response)
     @company_photo = getCompanyPhoto(@response)
     
 

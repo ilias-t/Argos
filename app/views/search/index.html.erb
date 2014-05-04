@@ -36,6 +36,7 @@ function addingEventListeners(){
     geocoder.value = newCompanySearch;
     geocoder.find();
     $("#search_input").val(newCompanySearch);
+    window.location.replace("/search?query="+newCompanySearch);
   });
 }
 
