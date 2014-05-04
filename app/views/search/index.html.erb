@@ -1,84 +1,79 @@
-<div id="map"></div>
+<div id="map">
+</div>
 
 <div id="search"></div>
 <div class="grid">
-  <div class="money-trail">
-    <% if @funding_data != nil %>
-    <h2>The Money Trail</h2>
-    <% end %>
-    <div class="timeline">
-      <% if @funding_data != nil %>
-      <% count = 1 %>
-      <% @funding_data.each do |round| %>
+ <div class="money-trail">
+   <% if @funding_data != nil %>
+   <h2>The Money Trail</h2>
+   <% end %>
+   <div class="timeline">
+     <% if @funding_data != nil %>
+     <% count = 1 %>
+     <% @funding_data.each do |round| %>
 
-        <a id="count<%=count%>" data-tooltip="<%@funding_arrays[count-1].each do |x|%> <%=x%> <%end%> $<%= number_with_delimiter(round["money_raised"], :delimiter=> ",")%>"><div class="bubble"></div></a>
+       <a id="count<%=count%>" data-tooltip="<%@funding_arrays[count-1].each do |x|%> <%=x%> <%end%> $<%= number_with_delimiter(round["money_raised"], :delimiter=> ",")%>"><div class="bubble"></div></a>
 
-          <% count += 1%>
-      <%end%>
-      <%end%>
-    </div>
-  </div>
+         <% count += 1%>
+     <%end%>
+     <%end%>
+   </div>
+ </div>
 
 <div class="company-stats">
-   <h2><%= @company_name %></h2>
-   <h1 id="total-funding">$<%= number_with_delimiter(@latest_funding, :delimiter => ',') %></h1>
-   <a href="http://www.crunchbase.com/organization/<%=@company_name%>" target="_blank"><img src="<%= @company_photo %>"></a>
-   <p><%= truncate(@company_description, :length => 800) %> <a href="http://www.crunchbase.com/organization/<%=@company_name%>" target="_blank">Read More</a></p>
- </div>
+  <h2><%= @company_name %></h2>
+  <h1 id="total-funding">$<%= number_with_delimiter(@latest_funding, :delimiter => ',') %></h1>
+  <a href="http://www.crunchbase.com/organization/<%=@company_name%>" target="_blank"><img src="<%= @company_photo %>"></a>
+  <p><%= truncate(@company_description, :length => 800) %> <a href="http://www.crunchbase.com/organization/<%=@company_name%>" target="_blank">Read More</a></p>
+</div>
 </div>
 
 <script>
-var map, geocoder, markersymbol;
-
-$("form").on("submit", function(e){
-  e.preventDefault();
-})
-
 
 $(document).ready( function(){
 
-  //With some options
-  $('#count1').darkTooltip({
-    animation:'flipIn',
-    gravity:'south',
-    theme:'light',
-    size: 'large'
-  });
-  $('#count2').darkTooltip({
-    animation:'flipIn',
-    gravity:'south',
-    theme:'light'
-  });
-  $('#count3').darkTooltip({
-    animation:'flipIn',
-    gravity:'south',
-    theme:'light'
-  });
-  $('#count4').darkTooltip({
-    animation:'flipIn',
-    gravity:'south',
-    theme:'light'
-  });
-  $('#count5').darkTooltip({
-    animation:'flipIn',
-    gravity:'south',
-    theme:'light'
-  });
-  $('#count6').darkTooltip({
-    animation:'flipIn',
-    gravity:'south',
-    theme:'light'
-  });
-  $('#count7').darkTooltip({
-    animation:'flipIn',
-    gravity:'south',
-    theme:'light'
-  });
-  $('#count8').darkTooltip({
-    animation:'flipIn',
-    gravity:'south',
-    theme:'light'
-  });
+ //With some options
+ $('#count1').darkTooltip({
+   animation:'flipIn',
+   gravity:'south',
+   theme:'light',
+   size: 'large'
+ });
+ $('#count2').darkTooltip({
+   animation:'flipIn',
+   gravity:'south',
+   theme:'light'
+ });
+ $('#count3').darkTooltip({
+   animation:'flipIn',
+   gravity:'south',
+   theme:'light'
+ });
+ $('#count4').darkTooltip({
+   animation:'flipIn',
+   gravity:'south',
+   theme:'light'
+ });
+ $('#count5').darkTooltip({
+   animation:'flipIn',
+   gravity:'south',
+   theme:'light'
+ });
+ $('#count6').darkTooltip({
+   animation:'flipIn',
+   gravity:'south',
+   theme:'light'
+ });
+ $('#count7').darkTooltip({
+   animation:'flipIn',
+   gravity:'south',
+   theme:'light'
+ });
+ $('#count8').darkTooltip({
+   animation:'flipIn',
+   gravity:'south',
+   theme:'light'
+ });
 });
 
 var map, geocoder, data, searcher;
@@ -86,58 +81,56 @@ var map, geocoder, data, searcher;
 searcher = new google.maps.Geocoder();
 
 require([
-  "esri/map", "dojo/domReady!", "esri/dijit/Geocoder"
-  ], function(Map, Geocoder) {
-    map = new Map("map",{
-      basemap: "gray",
-      center: [-98.35, 39.50],
-      zoom: 4
-    });
-    geocoder = new Geocoder({
-      map: map,
-      autoNavigate: false
-    }, "search");
-
-    geocoder.startup();
-
-     geocoder.on('find-results', function(e){
-      require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
-        var markerSymbol = new SimpleMarkerSymbol({
-          "color": [28,128,242,100]
-        });
-        map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
-      });
-      $.getJSON("search?query="+geocoder.value, function(json){data = json}).done(function(){
-        _.each(data.locations, function(element){
-          searcher.geocode( { 'address': element}, function(stuff, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-              require([
-                "esri/geometry/Point",
-                "esri/graphic",
-                "esri/symbols/SimpleMarkerSymbol"
-                ], function(Point, Graphic, SimpleMarkerSymbol) {
-                 var point = new Point(stuff[0].geometry.location.A, stuff[0].geometry.location.k);
-                 var markerSymbol = new SimpleMarkerSymbol({
-                  "color": [212,42,65,100]
-                });
-                 map.graphics.add(new Graphic(point, markerSymbol));
+ "esri/map", "esri/dijit/Geocoder", "dojo/domReady!"
+ ], function(Map, Geocoder) {
+   map = new Map("map",{
+     basemap: "gray",
+     center: [-98.35, 39.50],
+     zoom: 4
+   });
+   geocoder = new Geocoder({
+     map: map,
+     autoNavigate: false
+   }, "search");
+   geocoder.startup();
+   geocoder.on('find-results', function(e){
+     require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
+       var markerSymbol = new SimpleMarkerSymbol({
+         "color": [28,128,242,100]
+       });
+       map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
+     });
+     $.getJSON("search?query="+geocoder.value, function(json){data = json}).done(function(){
+       _.each(data.locations, function(element){
+         searcher.geocode( { 'address': element}, function(stuff, status) {
+           if (status == google.maps.GeocoderStatus.OK) {
+             require([
+               "esri/geometry/Point",
+               "esri/graphic",
+               "esri/symbols/SimpleMarkerSymbol"
+               ], function(Point, Graphic, SimpleMarkerSymbol) {
+                var point = new Point(stuff[0].geometry.location.A, stuff[0].geometry.location.k);
+                var markerSymbol = new SimpleMarkerSymbol({
+                 "color": [212,42,65,100]
                });
-            }
-          });
-        });
-      });
-    });
+                map.graphics.add(new Graphic(point, markerSymbol));
+              });
+           }
+         });
+       });
+     });
+   });
 });
 
 </script>
 
 <!-- initialize search -->
 <script type="text/javascript">
-  $(window).bind("load", function(){
-    geocoder.value = gon.searchQuery;
-    geocoder.find();
-  });
-  // $(document).ready(function(){
-  //   $("#search_input").val(gon.searchQuery);
-  // });
+ $(window).bind("load", function(){
+   geocoder.value = gon.searchQuery;
+   geocoder.find();
+ });
+ // $(document).ready(function(){
+ //   $("#search_input").val(gon.searchQuery);
+ // });
 </script>
