@@ -125,3 +125,7 @@ div.main-list {
 p.company-name {
   display: inline;
 }
+
+#searcher {
+  display: none;
+}
