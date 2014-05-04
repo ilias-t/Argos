@@ -154,7 +154,7 @@ div.grid > div {
 
  .timeline {
   display: inline-block;
-  margin-left: 10%;
+  margin-left: 5%;
   margin-top: 10%;
   color: white;
   vertical-align: bottom;
@@ -164,7 +164,7 @@ div.grid > div {
   height: 50px;
   width: 50px;
   border-radius: 25px;
-  background: black;
+  background: rgba(57, 153, 107, 0.41);
   display: inline-block;
   margin: 10px;
   vertical-align: top;
@@ -195,4 +195,8 @@ div.grid > div {
   color: white;
   cursor: pointer;
  }
+}
+
+#total-funding {
+  color: rgb(50, 145, 42);
 }
