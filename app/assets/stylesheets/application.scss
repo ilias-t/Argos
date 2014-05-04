@@ -187,3 +187,12 @@ div.grid > div {
   cursor: pointer;
  }
 }
+
+/* SVG Layer */
+#map_graphics_layer circle {
+  z-index: 10;
+ &:hover {
+  color: white;
+  cursor: pointer;
+ }
+}
