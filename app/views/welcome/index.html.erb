@@ -1,31 +1,22 @@
-<h1 id="header">Find Startups And Their Inventors.</h1>
+<h1 id="header">Find Startups And Their Investors.</h1>
 
-<form action="/search" method="get">
-  <input name="query" autocomplete="off" autofocus="autofocus" placeholder="Search For A Company" type="search">
-</form>
+<div class="white-background">
+  <form action="/search" method="get">
+    <input name="query" autocomplete="off" autofocus="autofocus" placeholder="Search For A Company" type="search">
+  </form>
 
-<div class="main-list">
-  <h2>Most Recent Companies</h2>
-  <ul class="startups">
-    <li><img src="http://placekitten.com/g/120/120">
-      <p>Yo. How is it going.</p>
-      <p class="right-carrot">>  </p>
-    </li>
-    <li><img src="http://placekitten.com/g/120/120">
-      <p>Yo. How is it going.</p>
-      <p class="right-carrot">>  </p>
-    </li>
-    <li><img src="http://placekitten.com/g/120/120">
-      <p>Yo. How is it going.</p>
-      <p class="right-carrot">>  </p>
-    </li>
-    <li><img src="http://placekitten.com/g/120/120">
-      <p>Yo. How is it going.</p>
-      <p class="right-carrot">>  </p>
-    </li>
-    <li><img src="http://placekitten.com/g/120/120">
-      <p>Yo. How is it going.</p>
-      <p class="right-carrot">>
-    </li>
-  </ul>
+  <div class="main-list">
+    <h2>Most Recent Companies</h2>
+    <ul class="startups">
+      <% @top_companies.each do |company| %>
+      <a href="search?query=<%= company['company_name'] %>">
+        <li><img src="<%= company['logo_url'] %>">
+          <p class="company-name"><%= company['company_name'] %></p>
+          <p class="raised-capital"><%= company['raised_string'] %></p>
+          <p class="right-carrot">>  </p>
+        </li>
+      </a>
+      <% end %>
+    </ul>
+  </div>
 </div>

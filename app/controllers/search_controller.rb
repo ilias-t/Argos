@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-include ApplicationHelper
+  include ApplicationHelper
 
   def index
     @query = Organizations.find_by_name(params[:query].downcase)

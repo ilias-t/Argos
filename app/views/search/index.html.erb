@@ -4,20 +4,27 @@
 <div id="search"></div>
 
 <script>
-    var map, geocoder;
+var map, geocoder;
 
-    require([
-      "esri/map", "esri/dijit/Geocoder", "dojo/domReady!"
-      ], function(Map, Geocoder) {
-        map = new Map("map",{
-          basemap: "gray",
-          center: [-98.35, 39.50],
-          zoom: 4
-        });
+require([
+  "esri/map", "esri/dijit/Geocoder", "dojo/domReady!"
+  ], function(Map, Geocoder) {
+    map = new Map("map",{
+      basemap: "gray",
+      center: [-98.35, 39.50],
+      zoom: 4
+    });
 
-        geocoder = new Geocoder({ 
-          map: map 
-        }, "search");
-        //geocoder.startup();
+    geocoder = new Geocoder({
+      map: map
+    }, "search");
+    geocoder.startup();
+    geocoder.on('find-results', function(e){
+      require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
+        var markerSymbol = new SimpleMarkerSymbol();
+        map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
       });
+
+    })
+  });
 </script>

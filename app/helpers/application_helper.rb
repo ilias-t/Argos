@@ -1,15 +1,28 @@
 module ApplicationHelper
 
   def showTrendingFundedCompanies
-    companies = {}
+    # companies = {}
+    new_top_companies = []
     response = HTTParty.get("http://static.crunchbase.com/daily/content_crunchbase.json")
     response["funding_rounds"].each do |item|
+      company_info = {}
       company_funding = item["raised_string"].gsub("$","").gsub(".", "").gsub("MM","000000").gsub("K","000").gsub("unknown","0").to_i
-      companies[item["company_name"]] = company_funding
+      company_info["funding_value"] = company_funding
+      company_info["company_name"] = item["company_name"]
+      company_info["logo_url"] = item["logo_url"]
+      company_info["raised_string"] = item["raised_string"]
+
+      new_top_companies << company_info
     end
-    sorted_companies = companies.sort_by {|key, value| value}.reverse
-    top_companies = sorted_companies.map {|company| company.first}
-    return top_companies[0..4]
+    sorted_companies = new_top_companies.sort_by {|company| company["funding_value"]}.reverse
+    # adding logo URL & Raised amount
+    # sorted_companies.each do |key, value|
+    #   company_name = key
+    #   response["funding_rounds"][
+    # end
+    # top_companies = sorted_companies.map {|company| company.first}
+    # return top_companies[0..4]
+    return sorted_companies[0..4]
   end
 
 
@@ -31,7 +44,7 @@ module ApplicationHelper
     day = response["data"]["properties"]["founded_on_day"]
     year = response["data"]["properties"]["founded_on_year"]
     founded_date = month.to_s + "/" + day.to_s + "/" + year.to_s
-    return founded_date 
+    return founded_date
   end
 
   def getFundingRounds(response)
