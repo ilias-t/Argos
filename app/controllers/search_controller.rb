@@ -18,6 +18,7 @@ class SearchController < ApplicationController
     @company_name = getCompanyName(@response)
     @company_description = getCompanyDescription(@response)
     @latest_funding = getLatestFunding(@response)
+    @markets = getMarkets(@response)
     binding.pry
     @company_photo = getCompanyPhoto(@response)
 
