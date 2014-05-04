@@ -8,10 +8,11 @@
   <div class="main-list">
     <h2>Most Recent Companies</h2>
     <ul class="startups">
-      <%= @top_companies.each do |company| %>
-      <a href="search?query=<%= company %>">
-        <li><img src="http://placekitten.com/g/120/120">
-          <p><%= company %></p>
+      <% @top_companies.each do |company| %>
+      <a href="search?query=<%= company['company_name'] %>">
+        <li><img src="<%= company['logo_url'] %>">
+          <p class="company-name"><%= company['company_name'] %></p>
+          <p class="raised-capital"><%= company['raised_string'] %></p>
           <p class="right-carrot">>  </p>
         </li>
       </a>

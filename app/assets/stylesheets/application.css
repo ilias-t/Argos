@@ -85,6 +85,7 @@ li {
 li:hover {
   background: rgb(102, 175, 209);
   opacity: 0.5;
+  color: white;
 }
 
 li img {
@@ -115,4 +116,14 @@ div.main-list {
 .white-background {
   background: white;
   padding-top: 40px;
+}
+
+.raised-capital {
+  display: inline;
+  float: right;
+  color: rgb(31, 167, 167);
+}
+
+p.company-name {
+  display: inline;
 }
