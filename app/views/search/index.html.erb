@@ -2,9 +2,10 @@
 </div>
 
 <div id="search"></div>
+<div id="geocode"></div>
 
 <script>
-var map, geocoder;
+var map, geocoder, data, searcher;
 
 require([
   "esri/map", "esri/dijit/Geocoder", "dojo/domReady!"
@@ -24,6 +25,9 @@ require([
       require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
         var markerSymbol = new SimpleMarkerSymbol();
         map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
+      });
+      $.getJSON("search?query="+geocoder.value, function(json){data = json}).done(function(){
+
       });
 
     })
