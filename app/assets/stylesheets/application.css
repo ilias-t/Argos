@@ -19,13 +19,14 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  background-image: url("Background App Pic .jpg")
+  background-image: url("background_blue.jpg");
   -moz-background-size: cover;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: top center !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed;
+  background
 }
 
 
@@ -33,11 +34,9 @@ body {
 #header {
   font-size: 80px;
   font-weight: 300;
-  margin-top: 200px;
-  margin-bottom: 200px;
+  margin-top: 150px;
+  margin-bottom: 150px;
   text-align: center;
-  padding-top: 50px;
-  padding-bottom: 50px;
 }
 
 input[type=search] {
@@ -67,6 +66,11 @@ ul {
   padding: 0;
 }
 
+ul.startups a {
+  text-decoration: none;
+  color: black;
+}
+
 li {
   height: 75px;
   width: 100%;
@@ -79,7 +83,7 @@ li {
 }
 
 li:hover {
-  background: pink;
+  background: rgb(102, 175, 209);
   opacity: 0.5;
 }
 
@@ -98,6 +102,7 @@ div.main-list {
   width: 70%;
   text-align: center;
   margin-left: 15%;
+  background: white;
 }
 
 .right-carrot {
@@ -107,3 +112,7 @@ div.main-list {
   margin-top: -60px;
 }
 
+.white-background {
+  background: white;
+  padding-top: 40px;
+}
