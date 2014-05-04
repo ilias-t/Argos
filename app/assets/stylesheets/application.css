@@ -93,7 +93,7 @@ div {
   margin-top: -60px;
 }
 
-.simpleGeocoder {
+.search {
   display: block;
   position: absolute;
   z-index: 0;
@@ -101,28 +101,8 @@ div {
   left: 74px;
 }
 
-.esriGeocoderContainer{
-  bottom: 0;
-  display: block;
-}
 
-#map_zoom_slider{
-  height: 10px;
-  bottom: 0;
-  display: block;
-}
 
-.esriGeocoder{
-  display: block;
-}
-
-#map_graphics_layer{
-  display: block;
-}
-
-#simpleGeocoder{
-  display: block;
-}
 
 #map {
   height: 80%;
