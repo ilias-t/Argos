@@ -67,7 +67,7 @@ module ApplicationHelper
   end
 
   def getFundingRounds(response)
-    unless response["data"]["relationships"]["funding_rounds"] == nil || response["data"]["relationships"] == nil
+    unless response["data"]["relationships"]["funding_rounds"] == nil
       funding_data = []
       funding_round_paths = response["data"]["relationships"]["funding_rounds"]["items"].map { |round| round["path"]}
       funding_round_paths.each do |round|
