@@ -9,12 +9,16 @@ class SearchController < ApplicationController
       @funding_companies = getInvestorLocations(@funding_data)
       @locations = @funding_companies[0]
       @investors = @funding_companies[1]
+      @info = {"locations" => @locations, "companies" => @investors}
     else 
       @companies = getCompanies(@response)
       @company_locations = getCompanyLocations(@companies)
+      @info = {"locations" => @companies_locations, "companies" => @companies}
     end
-    binding.pry
-    render :index
+    respond_to do |format|
+      format.html {render :index}
+      format.json {render json: @info}
+    end
   end
 
 private
