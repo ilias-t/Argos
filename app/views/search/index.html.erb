@@ -25,11 +25,16 @@
 </div>
 
 <script>
+<<<<<<< HEAD
 var map, geocoder, markersymbol;
 
 $("form").on("submit", function(e){
   e.preventDefault();
 })
+
+var map, geocoder, data, searcher;
+
+searcher = new google.maps.Geocoder();
 
 require([
   "esri/map", "dojo/domReady!", "esri/dijit/Geocoder"
@@ -39,7 +44,6 @@ require([
       center: [-98.35, 39.50],
       zoom: 4
     });
-
     geocoder = new Geocoder({
       map: map,
       autoNavigate: false
@@ -52,8 +56,24 @@ require([
         var markerSymbol = new SimpleMarkerSymbol();
         map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
       });
-
+      $.getJSON("search?query="+geocoder.value, function(json){data = json}).done(function(){
+        _.each(data.locations, function(element){
+          searcher.geocode( { 'address': element}, function(stuff, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              require([
+                "esri/geometry/Point",
+                "esri/graphic",
+                "esri/symbols/SimpleMarkerSymbol"
+                ], function(Point, Graphic, SimpleMarkerSymbol) {
+                 var point = new Point(stuff[0].geometry.location.A, stuff[0].geometry.location.k);
+                 var markerSymbol = new SimpleMarkerSymbol();
+                 map.graphics.add(new Graphic(point, markerSymbol));
+               });
+            }
+          });
+        });
+      });
     });
+});
 
-  });
 </script>

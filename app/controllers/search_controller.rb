@@ -10,11 +10,16 @@ class SearchController < ApplicationController
       @locations = @funding_companies[0]
       @investors = @funding_companies[1]
       @info = {"locations" => @locations, "companies" => @investors}
-    else 
+    else
       @companies = getCompanies(@response)
       @company_locations = getCompanyLocations(@companies)
       @info = {"locations" => @companies_locations, "companies" => @companies}
     end
+    @company_name = getCompanyName(@response)
+    @company_description = getCompanyDescription(@response)
+    @latest_funding = getLatestFunding(@response)
+    @company_photo = getCompanyPhoto(@response)
+
     respond_to do |format|
       format.html {render :index}
       format.json {render json: @info}

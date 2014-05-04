@@ -35,6 +35,16 @@ module ApplicationHelper
     return response["data"]["properties"]["description"]
   end
 
+  def getCompanyPhoto(response)
+    photo = response["data"]["relationships"]["primary_image"]["items"][0]["path"]
+    return "http://images.crunchbase.com/#{photo}"
+  end
+
+  def getLatestFunding(response)
+    string = response["data"]["relationships"]["funding_rounds"]["items"][0]["name"]
+    return string.scan(/[0-9]/).join("")
+  end
+
   def getPrimaryRole(response)
     return response["data"]["properties"]["primary_role"]
   end
@@ -59,7 +69,7 @@ module ApplicationHelper
         funding_round["series"] = funding_response["data"]["properties"]["series"]
         funding_round["money_raised"] = funding_response["data"]["properties"]["money_raised_usd"]
         funding_round["announced_on"] = funding_response["data"]["properties"]["announced_on"]
-        # Placing an array of funding organizations in the series hash  
+        # Placing an array of funding organizations in the series hash
         unless funding_response["data"]["relationships"]["investments"] == nil
           funding_response["data"]["relationships"]["investments"]["items"].each do |funding_org|
             investing_companies << funding_org["investor"]["name"]
@@ -115,7 +125,7 @@ module ApplicationHelper
     names.flatten!.uniq!.compact!.each do |company_name|
       company_id = company_name.downcase.gsub(" ","-")
       company_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company_id}?user_key=#{CRUNCHBASE_API_KEY}")
-      unless company_response["data"]["relationships"]["headquarters"] == nil
+      unless company_response["data"]["relationships"]["headquarters"].nil?
         street = company_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
         city = company_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
         state = company_response["data"]["relationships"]["headquarters"]["items"][0]["region"]
