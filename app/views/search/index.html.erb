@@ -1,10 +1,28 @@
 <div id="map"></div>
 
-<form action="/search" method="get">
-  <input name="query" autocomplete="off" autofocus="autofocus" placeholder="Search For A Company" type="search">
-</form>
+<div id="search"></div>
+<div class="grid">
+  <div class="money-trail">
+    <h2>The Money Trail</h2>
+    <div class="timeline">
+      <a id='sup' data-tooltip='hello'><div class="bubble"></div></a>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+    </div>
+  </div>
 
-<div id="search">"Menlo Park, CA"</div>
+  <div class="company-stats">
+    <h2>Company Name</h2>
+    <h1 id="total-funding">$12M</h1>
+    <img src="http://placekitten.com/g/150/150">
+    <p>Sollicitudin zzz stuck in a tree attack your ankles kittens suspendisse, sollicitudin stretching toss the mousie nunc lay down in your way. Run vel knock over the lamp I don't like that food, enim eat the grass sniff jump on the table pellentesque sagittis. Elit faucibus knock over the lamp rhoncus leap non, bibendum tristique sleep on your face quis. Judging you suspendisse tortor suspendisse sleep on your keyboard, nibh I don't like that food sunbathe stretching iaculis.</p>
+  </div>
+</div>
 
 <script>
 var map, geocoder, markersymbol;

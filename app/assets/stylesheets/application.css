@@ -54,7 +54,7 @@ input[type=search] {
   margin: 50px auto;
 }
 
-ul {
+ul.main-page {
   display: inline-block;
   list-style-type: none;
   width: 100%;
@@ -67,7 +67,7 @@ ul.startups a {
   color: black;
 }
 
-li {
+li.main-page {
   height: 75px;
   width: 100%;
   border-bottom: 1px solid black;
@@ -78,19 +78,19 @@ li {
   transition: all 1s;
 }
 
-li:hover {
+li.main-page:hover {
   background: rgb(102, 175, 209);
   opacity: 0.5;
   color: white;
 }
 
-li img {
+li img.main-page {
   display: inline;
   float: left;
   margin-top: -45px;
 }
 
-li img::after {
+li img.main-page::after {
   clear: both;
 }
 
@@ -122,4 +122,44 @@ div.main-list {
 
 p.company-name {
   display: inline;
+}
+
+.timeline {
+  background: white;
+}
+
+div.grid {
+  background: white;
+}
+
+div.grid > div {
+  width: 49%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.company-stats img {
+  float: right;
+  margin-top: -110px;
+}
+
+.company-stats img::after {
+  clear: both;
+}
+
+ /* Timeline */
+
+ .timeline {
+  display: inline-block;
+  margin-left: 20%;
+  margin-top: 10%;
+ }
+
+.bubble {
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background: black;
+  display: inline-block;
+  margin: 10px;
 }
