@@ -20,9 +20,22 @@
 body {
   text-align: center;
   font-family: 'Lato', sans-serif;
+  background-image: url("Background App Pic .jpg")
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: top center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed;
+}
+
+
+
+#header {
+  font-size: 80px;
   font-weight: 300;
-  margin-top: 200px;
-  margin-bottom: 200px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 input[type=search] {
@@ -72,22 +85,31 @@ li img {
   display: inline;
   float: left;
   margin-top: -45px;
-
 }
+
 li img::after {
   clear: both;
 }
 
-div {
+div.main-list {
   display: inline-block;
   width: 70%;
   text-align: center;
 }
-
 
 .right-carrot {
   opacity: .2;
   font-size: 30px;
   text-align: right;
   margin-top: -60px;
+}
+
+
+/* Show Page Styling */
+.dijitBorderContainer,
+.dijitBorderContainerNoGutter {
+  position: relative;
+  text-align: left;
+  overflow: hidden;
+  z-index: 0;
 }
