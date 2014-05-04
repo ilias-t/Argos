@@ -1,13 +1,31 @@
 <div id="map">
 </div>
 
-<div id="search"></div>
+<form id="search">
+  <input id="search_term"></input>
+</form>
+
+
+
+</div>
+<div id="address"></div>
 
 <script>
     var map, geocoder;
 
+    $("#search").appendTo("body");
+
+    $("#search").on("submit", function(e){
+      e.preventDefault();
+    });
+
+    // function to get all related places
+
+    // pin each place
+
+
     require([
-      "esri/map", "esri/dijit/Geocoder", "dojo/domReady!"
+      "esri/map", "esri/dijit/Geocoder", "dojo/domReady!", "esri/symbols/SimpleMarkerSymbol"
       ], function(Map, Geocoder) {
         map = new Map("map",{
           basemap: "gray",
@@ -17,7 +35,15 @@
 
         geocoder = new Geocoder({ 
           map: map 
-        }, "search");
+        }, "address");
+
         geocoder.startup();
+
+        var point = new Point;
+
+        marker = new SimpleMarkerSymbol({
+          "xoffset": 0,
+          "yoffset": 0
+        });
       });
 </script>
