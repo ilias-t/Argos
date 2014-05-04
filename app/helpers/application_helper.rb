@@ -145,4 +145,9 @@ module ApplicationHelper
     return [addresses, investors]
   end
 
+  def getMarkets(response)
+    markets = response["data"]["relationships"]["markets"]["items"]
+    return markets
+  end
+
 end

@@ -1,11 +1,13 @@
-<div id="map">
-</div>
+<div id="map"></div>
 
 <div id="search"></div>
 <div class="grid">
   <div class="money-trail">
+    <% if @funding_data != nil %>
     <h2>The Money Trail</h2>
+    <% end %>
     <div class="timeline">
+      <% if @funding_data != nil %>
       <% count = 1 %>
       <% @funding_data.each do |round| %>
 
@@ -13,7 +15,7 @@
 
           <% count += 1%>
       <%end%>
-
+      <%end%>
     </div>
   </div>
 
@@ -26,6 +28,12 @@
 </div>
 
 <script>
+var map, geocoder, markersymbol;
+
+$("form").on("submit", function(e){
+  e.preventDefault();
+})
+
 
 $(document).ready( function(){
 
@@ -78,7 +86,7 @@ var map, geocoder, data, searcher;
 searcher = new google.maps.Geocoder();
 
 require([
-  "esri/map", "esri/dijit/Geocoder", "dojo/domReady!"
+  "esri/map", "dojo/domReady!", "esri/dijit/Geocoder"
   ], function(Map, Geocoder) {
     map = new Map("map",{
       basemap: "gray",
@@ -89,8 +97,10 @@ require([
       map: map,
       autoNavigate: false
     }, "search");
+
     geocoder.startup();
-    geocoder.on('find-results', function(e){
+
+     geocoder.on('find-results', function(e){
       require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
         var markerSymbol = new SimpleMarkerSymbol({
           "color": [28,128,242,100]
