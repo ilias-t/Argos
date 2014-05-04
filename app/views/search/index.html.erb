@@ -4,12 +4,16 @@
 <div id="search"></div>
 <div class="grid">
   <div class="money-trail">
+    <% if @funding_data != nil %>
     <h2>The Money Trail</h2>
+    <% end %>
     <div class="timeline">
+      <% if @funding_data != nil %>
       <% count = 1 %>
       <% @funding_data.each do |round| %>
         <a id="count<%=count%>" data-tooltip="<%@funding_arrays[count-1].each do |x|%> <%=x%> <%end%> $<%= number_with_delimiter(round["money_raised"], :delimiter=> ",")%>"><div class="bubble"></div></a>
           <% count += 1%>
+      <%end%>
       <%end%>
       
     </div>
