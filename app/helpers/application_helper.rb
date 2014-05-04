@@ -42,7 +42,14 @@ module ApplicationHelper
 
   def getLatestFunding(response)
     string = response["data"]["relationships"]["funding_rounds"]["items"][0]["name"]
-    return string.scan(/[0-9]/).join("")
+    amount = string.scan(/[0-9]/).join("")
+    if amount == ""
+      string = response["data"]["relationships"]["funding_rounds"]["items"][1]["name"]
+      new_amount = string.scan(/[0-9]/).join("")
+      return new_amount
+    else
+      return amount
+    end
   end
 
   def getPrimaryRole(response)
