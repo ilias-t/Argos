@@ -3,20 +3,28 @@
 <div id="search"></div>
 <div class="grid">
   <div class="money-trail">
+    <% if @funding_data != nil %>
     <h2>The Money Trail</h2>
+    <% end %>
     <div class="timeline">
+      <% if @funding_data != nil %>
+      <% count = 1 %>
+      <% @funding_data.each do |round| %>
 
-      <a id='sup' data-tooltip='hello'><div class="bubble">test</div></a>
+        <a id="count<%=count%>" data-tooltip="<%@funding_arrays[count-1].each do |x|%> <%=x%> <%end%> $<%= number_with_delimiter(round["money_raised"], :delimiter=> ",")%>"><div class="bubble"></div></a>
 
+          <% count += 1%>
+      <%end%>
+      <%end%>
     </div>
   </div>
 
-  <div class="company-stats">
-    <h2><%= @company_name %></h2>
-    <h1 id="total-funding"><%= @latest_funding %></h1>
-    <img src="<%= @company_photo %>">
-    <p><%= @company_description %></p>
-  </div>
+<div class="company-stats">
+   <h2><%= @company_name %></h2>
+   <h1 id="total-funding">$<%= number_with_delimiter(@latest_funding, :delimiter => ',') %></h1>
+   <a href="http://www.crunchbase.com/organization/<%=@company_name%>" target="_blank"><img src="<%= @company_photo %>"></a>
+   <p><%= truncate(@company_description, :length => 800) %> <a href="http://www.crunchbase.com/organization/<%=@company_name%>" target="_blank">Read More</a></p>
+ </div>
 </div>
 
 <script>
@@ -30,7 +38,43 @@ $("form").on("submit", function(e){
 $(document).ready( function(){
 
   //With some options
-  $('#sup').darkTooltip({
+  $('#count1').darkTooltip({
+    animation:'flipIn',
+    gravity:'south',
+    theme:'light',
+    size: 'large'
+  });
+  $('#count2').darkTooltip({
+    animation:'flipIn',
+    gravity:'south',
+    theme:'light'
+  });
+  $('#count3').darkTooltip({
+    animation:'flipIn',
+    gravity:'south',
+    theme:'light'
+  });
+  $('#count4').darkTooltip({
+    animation:'flipIn',
+    gravity:'south',
+    theme:'light'
+  });
+  $('#count5').darkTooltip({
+    animation:'flipIn',
+    gravity:'south',
+    theme:'light'
+  });
+  $('#count6').darkTooltip({
+    animation:'flipIn',
+    gravity:'south',
+    theme:'light'
+  });
+  $('#count7').darkTooltip({
+    animation:'flipIn',
+    gravity:'south',
+    theme:'light'
+  });
+  $('#count8').darkTooltip({
     animation:'flipIn',
     gravity:'south',
     theme:'light'
@@ -85,4 +129,15 @@ require([
     });
 });
 
+</script>
+
+<!-- initialize search -->
+<script type="text/javascript">
+  $(window).bind("load", function(){
+    geocoder.value = gon.searchQuery;
+    geocoder.find();
+  });
+  // $(document).ready(function(){
+  //   $("#search_input").val(gon.searchQuery);
+  // });
 </script>

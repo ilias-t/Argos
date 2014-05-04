@@ -2,6 +2,7 @@ class SearchController < ApplicationController
   include ApplicationHelper
 
   def index
+    gon.searchQuery = params[:query]
     @query = (params[:query].downcase.gsub(" ", "-"))
     @response = search(@query)
     @funding_data = getFundingRounds(@response)
@@ -9,7 +10,13 @@ class SearchController < ApplicationController
       @funding_companies = getInvestorLocations(@funding_data)
       @locations = @funding_companies[0]
       @investors = @funding_companies[1]
+      @latest_funding = getLatestFunding(@response)
       @info = {"locations" => @locations, "companies" => @investors}
+      @funding_arrays = @funding_data.map do |round|
+        round["investing_companies"].map do |company|
+          company
+        end
+      end
     else
       @companies = getCompanies(@response)
       @company_locations = getCompanyLocations(@companies)
@@ -17,10 +24,14 @@ class SearchController < ApplicationController
     end
     @company_name = getCompanyName(@response)
     @company_description = getCompanyDescription(@response)
+<<<<<<< HEAD
     @latest_funding = getLatestFunding(@response)
     @markets = getMarkets(@response)
     binding.pry
+=======
+>>>>>>> fd522d827a1208fb54379c4305d48c3d75a0256d
     @company_photo = getCompanyPhoto(@response)
+    
 
     respond_to do |format|
       format.html {render :index}
