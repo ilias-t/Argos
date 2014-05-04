@@ -8,7 +8,6 @@ class SearchController < ApplicationController
     @funding_companies = getInvestorLocations(@funding_data)
     @locations = @funding_companies[0]
     @investors = @funding_companies[1]
-    binding.pry
     render :index
   end
 

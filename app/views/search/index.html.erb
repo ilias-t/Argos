@@ -1,13 +1,20 @@
-<div id="map">
-</div>
+<div id="map"></div>
 
-<div id="search"></div>
+<form action="/search" method="get">
+  <input name="query" autocomplete="off" autofocus="autofocus" placeholder="Search For A Company" type="search">
+</form>
+
+<div id="search">"Menlo Park, CA"</div>
 
 <script>
-var map, geocoder;
+var map, geocoder, markersymbol;
+
+$("form").on("submit", function(e){
+  e.preventDefault();
+})
 
 require([
-  "esri/map", "esri/dijit/Geocoder", "dojo/domReady!"
+  "esri/map", "dojo/domReady!", "esri/dijit/Geocoder"
   ], function(Map, Geocoder) {
     map = new Map("map",{
       basemap: "gray",
@@ -16,15 +23,19 @@ require([
     });
 
     geocoder = new Geocoder({
-      map: map
+      map: map,
+      autofocus: false
     }, "search");
+
     geocoder.startup();
-    geocoder.on('find-results', function(e){
+
+     geocoder.on('find-results', function(e){
       require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
         var markerSymbol = new SimpleMarkerSymbol();
         map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
       });
 
-    })
+    });
+
   });
 </script>
