@@ -2,8 +2,8 @@ class SearchController < ApplicationController
   include ApplicationHelper
 
   def index
-    @query = Organizations.find_by_name(params[:query].downcase)
-    @response = search(@query.crunchbase_id)
+    @query = (params[:query].downcase.gsub(" ", "-"))
+    @response = search(@query)
     @funding_data = getFundingRounds(@response)
     if @funding_data != nil
       @funding_companies = getInvestorLocations(@funding_data)
