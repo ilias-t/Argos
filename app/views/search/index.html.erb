@@ -45,7 +45,9 @@ require([
     geocoder.startup();
     geocoder.on('find-results', function(e){
       require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
-        var markerSymbol = new SimpleMarkerSymbol();
+        var markerSymbol = new SimpleMarkerSymbol({
+          "color": [28,128,242,100]
+        });
         map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
       });
       $.getJSON("search?query="+geocoder.value, function(json){data = json}).done(function(){
@@ -58,7 +60,9 @@ require([
                 "esri/symbols/SimpleMarkerSymbol"
                 ], function(Point, Graphic, SimpleMarkerSymbol) {
                  var point = new Point(stuff[0].geometry.location.A, stuff[0].geometry.location.k);
-                 var markerSymbol = new SimpleMarkerSymbol();
+                 var markerSymbol = new SimpleMarkerSymbol({
+                  "color": [212,42,65,100]
+                });
                  map.graphics.add(new Graphic(point, markerSymbol));
                });
             }
