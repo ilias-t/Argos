@@ -8,10 +8,10 @@
     <div class="timeline">
       <% count = 1 %>
       <% @funding_data.each do |round| %>
-        <a id="count<%=count%>" data-tooltip=<% round["investing_companies"].each {|company|%> <%="#{company}"%><%} %>><div class="bubble"><%=round["money_raised"]%></div></a>
+        <a id="count<%=count%>" data-tooltip=<% round["investing_companies"].each {|company| %> <%="#{company}"%><%} %>><div class="bubble"><%=round["money_raised"]%></div></a>
           <% count += 1%>
       <%end%>
-      
+
     </div>
   </div>
 
@@ -31,7 +31,8 @@ $(document).ready( function(){
   $('#count1').darkTooltip({
     animation:'flipIn',
     gravity:'south',
-    theme:'light'
+    theme:'light',
+    size: 'large'
   });
   $('#count2').darkTooltip({
     animation:'flipIn',
@@ -116,4 +117,15 @@ require([
     });
 });
 
+</script>
+
+<!-- initialize search -->
+<script type="text/javascript">
+  $(window).bind("load", function(){
+    geocoder.value = gon.searchQuery;
+    geocoder.find();
+  });
+  // $(document).ready(function(){
+  //   $("#search_input").val(gon.searchQuery);
+  // });
 </script>
