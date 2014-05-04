@@ -7,10 +7,10 @@
 
   <div class="main-list">
     <h2>Most Recent Companies</h2>
-    <ul class="startups">
+    <ul class="startups main-page">
       <% @top_companies.each do |company| %>
       <a href="search?query=<%= company['company_name'] %>">
-        <li><img src="<%= company['logo_url'] %>">
+        <li class="main-page"><img src="<%= company['logo_url'] %>" class="main-page">
           <p class="company-name"><%= company['company_name'] %></p>
           <p class="raised-capital"><%= company['raised_string'] %></p>
           <p class="right-carrot">>  </p>
