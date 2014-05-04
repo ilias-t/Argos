@@ -5,32 +5,37 @@
   <div class="money-trail">
     <h2>The Money Trail</h2>
     <div class="timeline">
-      <a id='sup' data-tooltip='hello'><div class="bubble"></div></a>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
+
+      <a id='sup' data-tooltip='hello'><div class="bubble">test</div></a>
+
     </div>
   </div>
 
   <div class="company-stats">
-    <h2>Company Name</h2>
-    <h1 id="total-funding">$12M</h1>
-    <img src="http://placekitten.com/g/150/150">
-    <p>Sollicitudin zzz stuck in a tree attack your ankles kittens suspendisse, sollicitudin stretching toss the mousie nunc lay down in your way. Run vel knock over the lamp I don't like that food, enim eat the grass sniff jump on the table pellentesque sagittis. Elit faucibus knock over the lamp rhoncus leap non, bibendum tristique sleep on your face quis. Judging you suspendisse tortor suspendisse sleep on your keyboard, nibh I don't like that food sunbathe stretching iaculis.</p>
+    <h2><%= @company_name %></h2>
+    <h1 id="total-funding"><%= @latest_funding %></h1>
+    <img src="<%= @company_photo %>">
+    <p><%= @company_description %></p>
   </div>
 </div>
 
 <script>
-<<<<<<< HEAD
 var map, geocoder, markersymbol;
 
 $("form").on("submit", function(e){
   e.preventDefault();
 })
+
+
+$(document).ready( function(){
+
+  //With some options
+  $('#sup').darkTooltip({
+    animation:'flipIn',
+    gravity:'south',
+    theme:'light'
+  });
+});
 
 var map, geocoder, data, searcher;
 
@@ -53,7 +58,9 @@ require([
 
      geocoder.on('find-results', function(e){
       require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
-        var markerSymbol = new SimpleMarkerSymbol();
+        var markerSymbol = new SimpleMarkerSymbol({
+          "color": [28,128,242,100]
+        });
         map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
       });
       $.getJSON("search?query="+geocoder.value, function(json){data = json}).done(function(){
@@ -66,7 +73,9 @@ require([
                 "esri/symbols/SimpleMarkerSymbol"
                 ], function(Point, Graphic, SimpleMarkerSymbol) {
                  var point = new Point(stuff[0].geometry.location.A, stuff[0].geometry.location.k);
-                 var markerSymbol = new SimpleMarkerSymbol();
+                 var markerSymbol = new SimpleMarkerSymbol({
+                  "color": [212,42,65,100]
+                });
                  map.graphics.add(new Graphic(point, markerSymbol));
                });
             }
