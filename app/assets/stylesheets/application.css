@@ -19,7 +19,7 @@
 
 body {
   font-family: 'Lato', sans-serif;
-  background-image: url("Background App Pic .jpg")
+  background-image: url("Background App Pic .jpg");
   -moz-background-size: cover;
   -webkit-background-size: cover;
   background-size: cover;
