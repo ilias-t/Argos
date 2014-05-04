@@ -2,6 +2,7 @@ class SearchController < ApplicationController
   include ApplicationHelper
 
   def index
+    gon.searchQuery = params[:query]
     @query = (params[:query].downcase.gsub(" ", "-"))
     @response = search(@query)
     @funding_data = getFundingRounds(@response)

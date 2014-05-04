@@ -37,6 +37,9 @@ gem 'httparty'
 
 gem 'rails_12factor'
 
+#pass global variables
+gem 'gon'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 
