@@ -36,7 +36,6 @@ module ApplicationHelper
   end
 
   def getCompanyPhoto(response)
-    binding.pry
     photo = response["data"]["relationships"]["primary_image"]["items"][0]["path"]
     return "http://images.crunchbase.com/#{photo}"
   end
