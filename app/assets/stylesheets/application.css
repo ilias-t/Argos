@@ -14,19 +14,17 @@
  *= require_self
  */
 
-
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 
 body {
   font-family: 'Lato', sans-serif;
-  background-image: url("background_blue.jpg");
+  background-image: url("http://i.imgur.com/tAfFJmA.jpg");
   -moz-background-size: cover;
   -webkit-background-size: cover;
   background-size: cover;
   background-position: top center !important;
   background-repeat: no-repeat !important;
   background-attachment: fixed;
-  background
 }
 
 

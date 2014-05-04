@@ -48,25 +48,58 @@ module ApplicationHelper
   end
 
   def getFundingRounds(response)
-    funding_data = []
-    funding_round_paths = response["data"]["relationships"]["funding_rounds"]["items"].map { |round| round["path"]}
-    funding_round_paths.each do |round|
-      funding_round = {}
-      investing_companies = []
-      # API calls to get investment details for each round
-      funding_response = HTTParty.get("http://api.crunchbase.com/v/2/#{round}?user_key=#{CRUNCHBASE_API_KEY}")
-      funding_round["series"] = funding_response["data"]["properties"]["series"]
-      funding_round["money_raised"] = funding_response["data"]["properties"]["money_raised_usd"]
-      funding_round["announced_on"] = funding_response["data"]["properties"]["announced_on"]
-      # Placing an array of funding organizations in the series hash
-      funding_response["data"]["relationships"]["investments"]["items"].each do |funding_org|
-        investing_companies << funding_org["investor"]["name"]
+    unless response["data"]["relationships"]["funding_rounds"] == nil
+      funding_data = []
+      funding_round_paths = response["data"]["relationships"]["funding_rounds"]["items"].map { |round| round["path"]}
+      funding_round_paths.each do |round|
+        funding_round = {}
+        investing_companies = []
+        # API calls to get investment details for each round
+        funding_response = HTTParty.get("http://api.crunchbase.com/v/2/#{round}?user_key=#{CRUNCHBASE_API_KEY}")
+        funding_round["series"] = funding_response["data"]["properties"]["series"]
+        funding_round["money_raised"] = funding_response["data"]["properties"]["money_raised_usd"]
+        funding_round["announced_on"] = funding_response["data"]["properties"]["announced_on"]
+        # Placing an array of funding organizations in the series hash  
+        unless funding_response["data"]["relationships"]["investments"] == nil
+          funding_response["data"]["relationships"]["investments"]["items"].each do |funding_org|
+            investing_companies << funding_org["investor"]["name"]
+          end
+          funding_round["investing_companies"] = investing_companies
+          # Key is the series type and round is a hash of data
+          funding_data << funding_round
+        end
       end
-      funding_round["investing_companies"] = investing_companies
-      # Key is the series type and round is a hash of data
-      funding_data << funding_round
+      return funding_data
+    else
+      return nil
     end
-    return funding_data
+  end
+
+  def getCompanies(response)
+    companies_invested_in = []
+      response["data"]["relationships"]["investments"]["items"].each do |item|
+        companies_invested_in.push(item["invested_in"]["name"])
+      end
+    return companies_invested_in
+  end
+
+  def getCompanyLocations(companies)
+    company_ids =[]
+    companies.each do |company|
+      company = Organizations.find_by_name(company.downcase)
+      company_ids.push(company)
+    end
+    addresses = []
+    company_ids.each do |company|
+      address_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company.crunchbase_id}?user_key=#{CRUNCHBASE_API_KEY}")
+      street = address_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
+      city = address_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
+      state = address_response["data"]["relationships"]["headquarters"]["items"][0]["state"]
+      country = address_response["data"]["relationships"]["headquarters"]["items"][0]["country"]
+      address = "#{street}, #{city}, #{state}, #{country}"
+      addresses.push(address)
+    end
+    return addresses
   end
 
   def getInvestorLocations(funding_data)
@@ -75,16 +108,20 @@ module ApplicationHelper
         company
       end
     end
-    addresses = names.flatten!.uniq!.compact!.each do |company_name|
-      company_response = HTTParty.get("http://api.crunchbase.com/v/2/#{company_name}?user_key=#{CRUNCHBASE_API_KEY}")
-      street = company_response["data"]["relationships"]["headquarters"]["items"]["street_1"]
-      city = company_response["data"]["relationships"]["headquarters"]["items"]["city"]
-      state = company_response["data"]["relationships"]["headquarters"]["items"]["region"]
-      country = company_response["data"]["relationships"]["headquarters"]["items"]["country_code"]
+    addresses = []
+    investors = []
+    names.flatten!.uniq!.compact!.each do |company_name|
+      company = Organizations.find_by_name(company_name.downcase)
+      company_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company.crunchbase_id}?user_key=#{CRUNCHBASE_API_KEY}")
+      street = company_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
+      city = company_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
+      state = company_response["data"]["relationships"]["headquarters"]["items"][0]["region"]
+      country = company_response["data"]["relationships"]["headquarters"]["items"][0]["country_code"]
       address = "#{street}, #{city}, #{state}, #{country}"
-      return address
+      investors.push(company)
+      addresses.push(address)
     end
-    return addresses
+    return [addresses, investors]
   end
 
 end
