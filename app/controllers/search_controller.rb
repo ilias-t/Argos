@@ -18,7 +18,6 @@ class SearchController < ApplicationController
     @company_name = getCompanyName(@response)
     @company_description = getCompanyDescription(@response)
     @latest_funding = getLatestFunding(@response)
-    binding.pry
     @company_photo = getCompanyPhoto(@response)
 
     respond_to do |format|
