@@ -27,27 +27,8 @@
       }
     </style>
     <script src="http://js.arcgis.com/3.9/"></script>
-    <script>
-      var map, geocoder;
-
-      require([
-        "esri/map", "esri/dijit/Geocoder", "dojo/domReady!"
-      ], function(Map, Geocoder) {
-        map = new Map("map",{
-          basemap: "gray",
-          center: [-98.35, 39.50], // lon, lat
-          zoom: 4
-        });
-
-        geocoder = new Geocoder({ 
-          map: map 
-        }, "search");
-        geocoder.startup();
-      });
-    </script>
   </head>
   <body>
-    <div id="search"></div>
-    <div id="map"></div>
+    <%= yield %>
   </body>
 </html>

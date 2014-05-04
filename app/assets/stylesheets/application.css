@@ -23,6 +23,7 @@ body {
   font-weight: 300;
   margin-top: 200px;
   margin-bottom: 200px;
+  text-align: center;
 }
 
 input[type=search] {
@@ -91,3 +92,42 @@ div {
   text-align: right;
   margin-top: -60px;
 }
+
+.simpleGeocoder {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  top: 20px;
+  left: 74px;
+}
+
+.esriGeocoderContainer{
+  bottom: 0;
+  display: block;
+}
+
+#map_zoom_slider{
+  height: 10px;
+  bottom: 0;
+  display: block;
+}
+
+.esriGeocoder{
+  display: block;
+}
+
+#map_graphics_layer{
+  display: block;
+}
+
+#simpleGeocoder{
+  display: block;
+}
+
+#map {
+  height: 80%;
+  z-index: 10;
+  display: block;
+  text-align: center;
+}
+
