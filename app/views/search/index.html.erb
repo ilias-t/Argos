@@ -26,6 +26,28 @@
 </div>
 
 <script>
+
+function addingEventListeners(){
+  $("#map_graphics_layer circle").on("click", function(){
+    newCompanySearch = this.id;
+    geocoder.value = newCompanySearch;
+    geocoder.find();
+    $("#search_input").val(newCompanySearch);
+  });
+}
+
+$(document).on("click", function(){
+  addingEventListeners();
+});
+
+function addIDsToCircles(arr){
+  $.each(arr.companies,function(index, value){
+      console.log("adding ids");
+      $("#map_graphics_layer circle")[index + 1].id = value;
+  })
+  addingEventListeners();
+}
+
 var map, geocoder, data, searcher;
 
 searcher = new google.maps.Geocoder();
@@ -44,6 +66,7 @@ require([
     }, "search");
     geocoder.startup();
     geocoder.on('find-results', function(e){
+      map.graphics.clear();
       require(["esri/graphic", "esri/symbols/SimpleMarkerSymbol"], function(Graphic, SimpleMarkerSymbol){
         var markerSymbol = new SimpleMarkerSymbol({
           "color": [28,128,242,100]
@@ -51,7 +74,9 @@ require([
         map.graphics.add(new Graphic(e.results.results[0].feature.geometry, markerSymbol));
       });
       $.getJSON("search?query="+geocoder.value, function(json){data = json}).done(function(){
-        _.each(data.locations, function(element){
+        window.circleData = data;
+        var counter = 1;
+        _.each(data.locations, function(element, index){
           searcher.geocode( { 'address': element}, function(stuff, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               require([
@@ -63,13 +88,24 @@ require([
                  var markerSymbol = new SimpleMarkerSymbol({
                   "color": [212,42,65,100]
                 });
-                 map.graphics.add(new Graphic(point, markerSymbol));
-               });
+                 // markerSymbol["company_name"] = data.companies[index];
+                 newGraphicPoint = new Graphic(point, markerSymbol);
+                 map.graphics.add(newGraphicPoint);
+                 counter++;
+                 if (counter === window.circleData.locations.length) {
+                    addIDsToCircles(window.circleData);
+                  };
+                  //window.circleData = data; //global variable
+                 });
             }
           });
         });
       });
     });
 });
+
+</script>
+
+<script type="text/javascript">
 
 </script>

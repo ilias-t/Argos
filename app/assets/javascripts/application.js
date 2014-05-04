@@ -15,4 +15,5 @@
 //= require underscore
 //= require backbone
 //= require turbolinks
+//= require async
 //= require_tree .
