@@ -30,18 +30,15 @@ body {
 }
 
 
-
 #header {
   font-size: 80px;
   font-weight: 300;
-<<<<<<< HEAD
   margin-top: 200px;
   margin-bottom: 200px;
   text-align: center;
-=======
   padding-top: 50px;
   padding-bottom: 50px;
->>>>>>> master
+
 }
 
 input[type=search] {
