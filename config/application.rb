@@ -6,9 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Serve assets in Heroku
-config.serve_static_assets = true
-
 module ArgosApp
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
