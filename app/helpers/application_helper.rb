@@ -92,12 +92,14 @@ module ApplicationHelper
     addresses = []
     company_ids.each do |company|
       address_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company.crunchbase_id}?user_key=#{CRUNCHBASE_API_KEY}")
-      street = address_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
-      city = address_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
-      state = address_response["data"]["relationships"]["headquarters"]["items"][0]["state"]
-      country = address_response["data"]["relationships"]["headquarters"]["items"][0]["country"]
-      address = "#{street}, #{city}, #{state}, #{country}"
-      addresses.push(address)
+      unless address_response["data"]["relationships"]["headquarters"] == nil
+        street = address_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
+        city = address_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
+        state = address_response["data"]["relationships"]["headquarters"]["items"][0]["state"]
+        country = address_response["data"]["relationships"]["headquarters"]["items"][0]["country"]
+        address = "#{street}, #{city}, #{state}, #{country}"
+        addresses.push(address)
+      end
     end
     return addresses
   end
@@ -113,13 +115,15 @@ module ApplicationHelper
     names.flatten!.uniq!.compact!.each do |company_name|
       company = Organizations.find_by_name(company_name.downcase)
       company_response = HTTParty.get("http://api.crunchbase.com/v/2/organization/#{company.crunchbase_id}?user_key=#{CRUNCHBASE_API_KEY}")
-      street = company_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
-      city = company_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
-      state = company_response["data"]["relationships"]["headquarters"]["items"][0]["region"]
-      country = company_response["data"]["relationships"]["headquarters"]["items"][0]["country_code"]
-      address = "#{street}, #{city}, #{state}, #{country}"
+      unless company_response["data"]["relationships"]["headquarters"] == nil
+        street = company_response["data"]["relationships"]["headquarters"]["items"][0]["street_1"]
+        city = company_response["data"]["relationships"]["headquarters"]["items"][0]["city"]
+        state = company_response["data"]["relationships"]["headquarters"]["items"][0]["region"]
+        country = company_response["data"]["relationships"]["headquarters"]["items"][0]["country_code"]
+        address = "#{street}, #{city}, #{state}, #{country}"
+        addresses.push(address)
+      end
       investors.push(company)
-      addresses.push(address)
     end
     return [addresses, investors]
   end
