@@ -148,3 +148,20 @@ div.grid > div {
 .company-stats img::after {
   clear: both;
 }
+
+ /* Timeline */
+
+ .timeline {
+  display: inline-block;
+  margin-left: 20%;
+  margin-top: 10%;
+ }
+
+.bubble {
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background: black;
+  display: inline-block;
+  margin: 10px;
+}
