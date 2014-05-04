@@ -1,9 +1,9 @@
 class SearchController < ApplicationController
 
   def index
+    binding.pry
     @query = Organizations.find_by_name(params[:query].downcase)
     @results = search(@query.crunchbase_id)
-    binding.pry
     render :index
   end
 
