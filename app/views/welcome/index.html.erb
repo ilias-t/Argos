@@ -1,7 +1,7 @@
 <h1>Find Startups And Their Inventors</h1>
 
-<form>
-  <input id="submit" autocomplete="off" autofocus="autofocus" placeholder="Type In a Startup Here" type="search">
+<form action="/search" method="get">
+  <input name="query" autocomplete="off" autofocus="autofocus" placeholder="Type In a Startup Here" type="search">
 </form>
 
 <div>
@@ -9,41 +9,23 @@
   <ul class="startups">
     <li><img src="http://placekitten.com/g/120/120">
       <p>Yo. How is it going.</p>
-      <p class="right-carrot">></p>
+      <p class="right-carrot">>  </p>
     </li>
     <li><img src="http://placekitten.com/g/120/120">
       <p>Yo. How is it going.</p>
-      <p class="right-carrot">></p>
+      <p class="right-carrot">>  </p>
     </li>
     <li><img src="http://placekitten.com/g/120/120">
       <p>Yo. How is it going.</p>
-      <p class="right-carrot">></p>
+      <p class="right-carrot">>  </p>
     </li>
     <li><img src="http://placekitten.com/g/120/120">
       <p>Yo. How is it going.</p>
-      <p class="right-carrot">></p>
+      <p class="right-carrot">>  </p>
     </li>
     <li><img src="http://placekitten.com/g/120/120">
       <p>Yo. How is it going.</p>
-      <p class="right-carrot">></p>
+      <p class="right-carrot">>
     </li>
   </ul>
 </div>
-
-<script type="text/javascript">
-
-  $("form#submit").on("submit", function(e) {
-    e.preventDefault;
-    var data = {
-      query: $("input").val()
-    };
-    console.log(data);
-    $.ajax({
-      url:"/search",
-      data: data
-    }).success(function(response){
-        window.location.replace("/search/")
-      });
-  });
-
-</script>
