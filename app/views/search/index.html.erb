@@ -16,7 +16,8 @@ require([
     });
 
     geocoder = new Geocoder({
-      map: map
+      map: map,
+      autoNavigate: false
     }, "search");
     geocoder.startup();
     geocoder.on('find-results', function(e){
