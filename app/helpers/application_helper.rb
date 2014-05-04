@@ -56,4 +56,22 @@ module ApplicationHelper
     return funding_data
   end
 
+  def getInvestorLocations(funding_data)
+    names = funding_data.map do |round|
+      round["investing_companies"].each do |company|
+        company
+      end
+    end
+    addresses = names.flatten!.uniq!.compact!.each do |company_name|
+      company_response = HTTParty.get("http://api.crunchbase.com/v/2/#{company_name}?user_key=#{CRUNCHBASE_API_KEY}")
+      street = company_response["data"]["relationships"]["headquarters"]["items"]["street_1"]
+      city = company_response["data"]["relationships"]["headquarters"]["items"]["city"]
+      state = company_response["data"]["relationships"]["headquarters"]["items"]["region"]
+      country = company_response["data"]["relationships"]["headquarters"]["items"]["country_code"]
+      address = "#{street}, #{city}, #{state}, #{country}"
+      return address
+    end
+    return addresses
+  end
+
 end
