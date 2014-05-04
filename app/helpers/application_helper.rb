@@ -34,8 +34,26 @@ module ApplicationHelper
     return founded_date 
   end
 
-  def get
-
+  def getFundingRounds(response)
+    funding_data = []
+    funding_round_paths = response["data"]["relationships"]["funding_rounds"]["items"].map { |round| round["path"]}
+    funding_round_paths.each do |round|
+      funding_round = {}
+      investing_companies = []
+      # API calls to get investment details for each round
+      funding_response = HTTParty.get("http://api.crunchbase.com/v/2/#{round}?user_key=#{CRUNCHBASE_API_KEY}")
+      funding_round["series"] = funding_response["data"]["properties"]["series"]
+      funding_round["money_raised"] = funding_response["data"]["properties"]["money_raised_usd"]
+      funding_round["announced_on"] = funding_response["data"]["properties"]["announced_on"]
+      # Placing an array of funding organizations in the series hash
+      funding_response["data"]["relationships"]["investments"]["items"].each do |funding_org|
+        investing_companies << funding_org["investor"]["name"]
+      end
+      funding_round["investing_companies"] = investing_companies
+      # Key is the series type and round is a hash of data
+      funding_data << funding_round
+    end
+    return funding_data
   end
 
 end
