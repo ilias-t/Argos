@@ -6,14 +6,14 @@
   <div class="money-trail">
     <h2>The Money Trail</h2>
     <div class="timeline">
+      <a id='sup' data-tooltip='hello'><div class="bubble">$35M</div></a>
       <a id='sup' data-tooltip='hello'><div class="bubble"></div></a>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
-      <div class="bubble"></div>
+      <a id='sup' data-tooltip='hello'><div class="bubble"></div></a>
+      <a id='sup' data-tooltip='hello'><div class="bubble"></div></a>
+      <a id='sup' data-tooltip='hello'><div class="bubble"></div></a>
+      <a id='sup' data-tooltip='hello'><div class="bubble"></div></a>
+      <a id='sup' data-tooltip='hello'><div class="bubble"></div></a>
+      <a id='sup' data-tooltip='hello'><div class="bubble"></div></a>
     </div>
   </div>
 
@@ -26,6 +26,17 @@
 </div>
 
 <script>
+
+$(document).ready( function(){
+
+  //With some options
+  $('#sup').darkTooltip({
+    animation:'flipIn',
+    gravity:'south',
+    theme:'light'
+  });
+});
+
 var map, geocoder;
 
 require([
