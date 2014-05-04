@@ -35,6 +35,17 @@ module ApplicationHelper
     return response["data"]["properties"]["description"]
   end
 
+  def getCompanyPhoto(response)
+    binding.pry
+    photo = response["data"]["relationships"]["primary_image"]["items"][0]["path"]
+    return "http://images.crunchbase.com/#{photo}"
+  end
+
+  def getLatestFunding(response)
+    string = response["data"]["relationships"]["funding_rounds"]["items"][0]["name"]
+    return string.scan(/[0-9]/).join("")
+  end
+
   def getPrimaryRole(response)
     return response["data"]["properties"]["primary_role"]
   end
