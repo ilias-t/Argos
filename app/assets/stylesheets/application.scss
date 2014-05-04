@@ -27,8 +27,6 @@ body {
   background-attachment: fixed;
 }
 
-
-
 #header {
   font-size: 80px;
   font-weight: 300;
@@ -142,7 +140,8 @@ div.grid > div {
 
 .company-stats img {
   float: right;
-  margin-top: -110px;
+  margin-top: -70px;
+  width: 250px;
 }
 
 .company-stats img::after {
@@ -153,17 +152,20 @@ div.grid > div {
 
  .timeline {
   display: inline-block;
-  margin-left: 20%;
+  margin-left: 5%;
   margin-top: 10%;
+  color: white;
+  vertical-align: bottom;
  }
 
 .bubble {
-  height: 20px;
-  width: 20px;
-  border-radius: 10px;
-  background: black;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  background: rgba(57, 153, 107, 0.41);
   display: inline-block;
   margin: 10px;
+  vertical-align: top;
 }
 
 /* SVG Layer */
@@ -173,4 +175,26 @@ div.grid > div {
   color: white;
   cursor: pointer;
  }
+}
+
+/* SVG Layer */
+#map_graphics_layer circle {
+  z-index: 10;
+ &:hover {
+  color: white;
+  cursor: pointer;
+ }
+}
+
+/* SVG Layer */
+#map_graphics_layer circle {
+  z-index: 10;
+ &:hover {
+  color: white;
+  cursor: pointer;
+ }
+}
+
+#total-funding {
+  color: rgb(50, 145, 42);
 }
