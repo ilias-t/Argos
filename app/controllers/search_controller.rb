@@ -19,6 +19,11 @@ class SearchController < ApplicationController
     @company_description = getCompanyDescription(@response)
     @latest_funding = getLatestFunding(@response)
     @company_photo = getCompanyPhoto(@response)
+    @funding_arrays = @funding_data.map do |round|
+      round["investing_companies"].map do |company|
+        company
+      end
+    end
 
     respond_to do |format|
       format.html {render :index}

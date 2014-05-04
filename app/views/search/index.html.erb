@@ -8,19 +8,19 @@
     <div class="timeline">
       <% count = 1 %>
       <% @funding_data.each do |round| %>
-        <a id="count<%=count%>" data-tooltip=<% round["investing_companies"].each {|company|%> <%="#{company}"%><%} %>><div class="bubble"><%=round["money_raised"]%></div></a>
+        <a id="count<%=count%>" data-tooltip="<%@funding_arrays[count-1].each do |x|%> <%=x%> <%end%> $<%= number_with_delimiter(round["money_raised"], :delimiter=> ",")%>"><div class="bubble"></div></a>
           <% count += 1%>
       <%end%>
       
     </div>
   </div>
 
-  <div class="company-stats">
-    <h2><%= @company_name %></h2>
-    <h1 id="total-funding"><%= @latest_funding %></h1>
-    <img src="<%= @company_photo %>">
-    <p><%= @company_description %></p>
-  </div>
+<div class="company-stats">
+   <h2><%= @company_name %></h2>
+   <h1 id="total-funding">$<%= number_with_delimiter(@latest_funding, :delimiter => ',') %></h1>
+   <a href="http://www.crunchbase.com/organization/<%=@company_name%>" target="_blank"><img src="<%= @company_photo %>"></a>
+   <p><%= truncate(@company_description, :length => 800) %> <a href="http://www.crunchbase.com/organization/<%=@company_name%>" target="_blank">Read More</a></p>
+ </div>
 </div>
 
 <script>
