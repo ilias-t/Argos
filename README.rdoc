@@ -2,10 +2,6 @@
 
 =Winner of the Crunchbase API prize @ Techcruch Disrupt 2014
 
-APIs
--Crunchbase
--Esri
+APIs: Crunchbase, Esri
 
-Technologies
--Rails
--JQuery
+Core Technologies: Rails, JQuery
