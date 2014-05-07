@@ -4,4 +4,4 @@
 
 APIs: Crunchbase, Esri
 
-Core Technologies: Rails, JQuery
+Core Technologies: Rails, JQuery, Underscore.js
