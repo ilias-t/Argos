@@ -1,7 +1,0 @@
-== README
-
-=Winner of the Crunchbase API prize @ Techcruch Disrupt 2014
-
-APIs: Crunchbase, Esri
-
-Core Technologies: Rails, JQuery, Underscore.js
